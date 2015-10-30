@@ -11,7 +11,7 @@ describe 'python' do
 
   let(:params) { default_params }
 
-  it { should contain_file("/opt/python") }
+  it { should contain_class("python::pyenv") }
 
   context "osfamily is Darwin" do
     let(:facts) {
@@ -20,13 +20,6 @@ describe 'python' do
 
     it { should contain_class("boxen::config") }
     it { should contain_boxen__env_script("pyenv") }
-
-    it do
-      should contain_file("/opt/python").with({
-        :ensure => "directory",
-        :owner  => "testuser",
-      })
-    end
   end
 
   context "osfamily is not Darwin" do
@@ -36,12 +29,5 @@ describe 'python' do
 
     it { should_not contain_class("boxen::config") }
     it { should_not contain_boxen__env_script("python") }
-
-    it do
-      should contain_file("/opt/python").with({
-        :ensure => "directory",
-        :owner  => "root",
-      })
-    end
   end
 end

@@ -2,7 +2,7 @@
 #
 # Usage:
 #
-#   class { 'python::global': version => '2.7.3' }
+#   class { 'python::global': version => '2.7.10' }
 #
 
 class python::global(

@@ -28,7 +28,11 @@ Puppet::Type.type(:pyenv_package).provide(:pip) do
   end
 
   def create
-    pyenv_package "install '#{@resource[:package]}#{@resource[:version]}'"
+    if @resource[:url]
+      pyenv_package "install #{@resource[:url]}"
+    else
+      pyenv_package "install '#{@resource[:package]}#{@resource[:version]}' #{@resource[:url]}"
+    end
   end
 
   def destroy

@@ -1,5 +1,7 @@
 export PYENV_ROOT=<%= scope.lookupvar("::python::pyenv::prefix") %>
 
+<%- if scope.lookupvar("::osfamily") != 'Darwin' -%>
 export PATH=<%= scope.lookupvar("::python::pyenv::prefix") %>/bin:$PATH
+<%- end -%>
 
 eval "$(pyenv init -)"

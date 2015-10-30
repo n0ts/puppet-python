@@ -36,6 +36,7 @@ define python::version(
     $default_env = {
       'CC'         => '/usr/bin/cc',
       'PYENV_ROOT' => $python::pyenv::prefix,
+      'PYTHON_BUILD_CACHE_PATH' => "${python::prefix}/cache/pyenv",
     }
 
     if $::operatingsystem == 'Darwin' {
@@ -66,13 +67,23 @@ define python::version(
     }
 
     exec { "python-install-${version}":
-      command  => "${python::pyenv::prefix}/bin/pyenv install --skip-existing ${version}",
+      command  => "pyenv install --skip-existing ${version}",
       cwd      => "${python::pyenv::prefix}/versions",
       provider => 'shell',
       timeout  => 0,
       creates  => $dest,
       user     => $python::pyenv::user,
       require  => Package['readline'],
+      notify   => Exec["python-upgrade-pip-${version}"],
+    }
+
+    exec { "python-upgrade-pip-${version}":
+      command     => 'pip install --upgrade pip',
+      user        => $python::pyenv::user,
+      path        => [
+                      "${::boxen_home}/pyenv/versions/${version}/bin",
+                      ],
+      refreshonly => true,
     }
 
     Exec["python-install-${version}"] {

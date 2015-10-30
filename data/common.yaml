@@ -7,9 +7,9 @@ python::version::alias:
   "3.4": 3.4.3
   "3.5": 3.5.0
 
-python::prefix: '/opt'
+python::prefix: "%{::boxen::config::home}"
 python::user: "%{::id}"
 
-python::pyenv::ensure: v20150913
+python::pyenv::ensure: v20151006
 python::pyenv::prefix: "%{hiera('python::prefix')}/pyenv"
 python::pyenv::user: "%{hiera('python::user')}"

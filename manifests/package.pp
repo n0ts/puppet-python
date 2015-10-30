@@ -14,6 +14,7 @@ define python::package(
     $python,
     $ensure = 'present',
     $version = '>= 0',
+    $url = undef,
 ) {
   require python
 
@@ -21,6 +22,7 @@ define python::package(
     ensure         => $ensure,
     package        => $package,
     version        => $version,
+    url            => $url,
     pyenv_version  => $python,
     pyenv_root     => $python::pyenv::prefix,
     provider       => pip,

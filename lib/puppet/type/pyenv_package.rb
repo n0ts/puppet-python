@@ -24,6 +24,10 @@ Puppet::Type.newtype(:pyenv_package) do
     desc "The location of pyenv install"
   end
 
+  newparam(:url) do
+    desc "The URL for source archive file"
+  end
+
   autorequire(:exec) do
     "python-install-#{self[:pyenv_version]}"
   end

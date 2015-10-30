@@ -1,7 +1,7 @@
 # Aliases a python version to another
 #
 # Usage:
-#     python::alias { '2.7': to => '2.7.8' }
+#     python::alias { '2.7': to => '2.7.10' }
 #
 define python::alias (
   $ensure  = 'installed',

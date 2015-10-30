@@ -10,11 +10,20 @@ describe "python::version" do
         should contain_class("python")
 
         should contain_exec("python-install-2.7.6").with({
-          :command  => "/test/boxen/pyenv/bin/pyenv install --skip-existing 2.7.6",
+          :command  => "pyenv install --skip-existing 2.7.6",
           :cwd      => '/test/boxen/pyenv/versions',
           :provider => 'shell',
           :timeout  => 0,
           :creates  => '/opt/python/2.7.6'
+        })
+      end
+
+      it do
+        should contain_exec("python-upgrade-pip-2.7.6").with({
+          :command     => "pip install --upgrade pip",
+          :user        => 'testuser',
+          :path        => ['/test/boxen/pyenv/versions/2.7.6/bin'],
+          :refreshonly => true
         })
       end
     end
@@ -25,6 +34,7 @@ describe "python::version" do
           "CC=/usr/bin/cc",
           "FROM_HIERA=true",
           "PYENV_ROOT=/test/boxen/pyenv",
+          "PYTHON_BUILD_CACHE_PATH=/cache/pyenv",
         ])
       end
     end
@@ -41,6 +51,7 @@ describe "python::version" do
           "CC=/usr/bin/cc",
           "FROM_HIERA=true",
           "PYENV_ROOT=/test/boxen/pyenv",
+          "PYTHON_BUILD_CACHE_PATH=/cache/pyenv",
           "SOME_VAR=foobar",
         ])
       end

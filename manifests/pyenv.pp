@@ -12,18 +12,45 @@ class python::pyenv(
 ) {
   require python
 
-  repository { $prefix:
-    ensure => $ensure,
-    force  => true,
-    source => 'yyuu/pyenv',
-    user   => $user,
+  if $::osfamily == 'Darwin' {
+    require homebrew
+    package { 'pyenv': }
+
+    $require = Package['pyenv']
+
+    file { "${prefix}/versions":
+      ensure  => directory,
+      owner   => $user,
+      require => $require,
+    }
+  } else {
+    repository { $prefix:
+      ensure => $ensure,
+      force  => true,
+      source => 'yyuu/pyenv',
+      user   => $user,
+    }
+
+    $require = Repository[$prefix]
+
+    file { "${prefix}/versions":
+      ensure  => symlink,
+      force   => true,
+      backup  => false,
+      target  => '/opt/python',
+      require => $require,
+    }
   }
 
-  file { "${prefix}/versions":
-    ensure  => symlink,
-    force   => true,
-    backup  => false,
-    target  => '/opt/python',
-    require => Repository[$prefix],
+  file { $prefix:
+    ensure  => directory,
+    owner   => $user,
+    require => $require,
+  }
+
+  file { "${python::prefix}/cache/pyenv":
+    ensure  => directory,
+    owner   => $user,
+    require => $require,
   }
 }
