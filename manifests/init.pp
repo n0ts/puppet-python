@@ -19,6 +19,18 @@ class python(
       content  => template('python/pyenv.sh.erb'),
       priority => 'higher'
     }
+
+    file { "/Users/${user}/Library/Application Support/pip":
+      ensure  => directory,
+    }
+
+    file { "/Users/${user}/Library/Application Support/pip/pip.conf":
+      require => File["/Users/${user}/Library/Application Support/pip"],
+      content => "
+[list]
+format = columns
+",
+    }
   }
 
   Class['python::pyenv'] ->
