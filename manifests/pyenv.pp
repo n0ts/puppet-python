@@ -14,7 +14,7 @@ class python::pyenv(
 
   if $::osfamily == 'Darwin' {
     require homebrew
-    package { 'pyenv': }
+    package { [ 'pyenv', 'pyenv-virtualenv' ]: }
 
     $require = Package['pyenv']
 

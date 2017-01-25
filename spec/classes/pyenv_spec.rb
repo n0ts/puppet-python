@@ -33,6 +33,7 @@ describe 'python::pyenv' do
     it do
       should contain_class('homebrew')
       should contain_package('pyenv')
+      should contain_package('pyenv-virtualenv')
 
       should contain_file('/test/boxen/pyenv').with({
          :ensure  => 'directory',
