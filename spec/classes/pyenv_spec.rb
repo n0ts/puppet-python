@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe 'python::pyenv' do
   let(:facts) { default_test_facts }
@@ -18,11 +18,11 @@ describe 'python::pyenv' do
     should contain_file('/test/boxen/pyenv').with({
       :ensure  => 'directory',
       :owner   => 'boxenuser',
-    }).that_requires('Package[pyenv]')
+    }).with_require('Package[pyenv]')
     should contain_file('/cache/pyenv').with({
       :ensure  => 'directory',
       :owner   => 'boxenuser',
-    }).that_requires('Package[pyenv]')
+    }).with_require('Package[pyenv]')
   end
 
   context 'osfamily is Darwin' do
@@ -64,11 +64,10 @@ describe 'python::pyenv' do
       })
 
        should contain_file('/test/boxen/pyenv/versions').with({
-        :ensure => 'symlink',
-        :target => '/opt/python',
+        :ensure  => 'symlink',
+        :target  => '/opt/python',
         :require => 'Repository[/test/boxen/pyenv]',
       })
     end
   end
 end
-

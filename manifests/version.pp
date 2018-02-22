@@ -2,17 +2,17 @@
 #
 # Usage:
 #
-#   python::version { '2.7.3': }
+#   python::version { '2.7.14': }
 #
-
 define python::version(
   $ensure  = 'installed',
   $env     = {},
   $version = $name,
 ) {
   require python
+  require openssl
 
-  $alias_hash = hiera_hash('python::version::alias', {})
+  $alias_hash = lookup('python::version::alias', Hash, 'deep', {})
   $dest = "/opt/python/${version}"
 
   if has_key($alias_hash, $version) {
@@ -45,7 +45,7 @@ define python::version(
       ensure_resource('package', 'readline')
     }
 
-    $hierdata = hiera_hash('python::version::env', {})
+    $hierdata = lookup('python::version::env', Hash, 'deep', {})
 
     if has_key($hierdata, $::operatingsystem) {
       $os_env = $hierdata[$::operatingsystem]
@@ -72,7 +72,7 @@ define python::version(
       timeout  => 0,
       creates  => $dest,
       user     => $python::pyenv::user,
-      require  => Package['readline'],
+      require  => [ Package['readline'], Package['openssl'] ],
       notify   => Exec["python-upgrade-pip-${version}"],
     }
 

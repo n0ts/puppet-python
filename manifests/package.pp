@@ -8,23 +8,22 @@
 #     version => '==1.11.2',
 #   }
 #
-
 define python::package(
     $package,
     $python,
-    $ensure = 'present',
+    $ensure  = 'present',
     $version = '>= 0',
-    $url = undef,
+    $url     = undef,
 ) {
   require python
 
   pyenv_package { $name:
-    ensure         => $ensure,
-    package        => $package,
-    version        => $version,
-    url            => $url,
-    pyenv_version  => $python,
-    pyenv_root     => $python::pyenv::prefix,
-    provider       => pip,
+    ensure        => $ensure,
+    package       => $package,
+    version       => $version,
+    url           => $url,
+    pyenv_version => $python,
+    pyenv_root    => $python::pyenv::prefix,
+    provider      => pip,
   }
 }

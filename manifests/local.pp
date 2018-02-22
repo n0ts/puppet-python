@@ -4,7 +4,6 @@
 #
 #   python::local { '/path/to/directory': version => '3.3.0' }
 #
-
 define python::local(
   $version = undef,
   $ensure  = present,

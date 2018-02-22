@@ -2,11 +2,10 @@
 #
 # Usage:
 #
-#   class { 'python::global': version => '2.7.10' }
+#   class { 'python::global': version => '2.7.14' }
 #
-
 class python::global(
-  $version = '2.7.10',
+  $version = '2.7.14',
 ) {
   require python
 

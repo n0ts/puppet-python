@@ -1,7 +1,5 @@
-mod "boxen",       "3.4.2", :github_tarball => "boxen/puppet-boxen"
-mod "gcc",         "1.0.0", :github_tarball => "boxen/puppet-gcc"
-mod "homebrew",    "1.1.2", :github_tarball => "boxen/puppet-homebrew"
-mod "repository",  "2.2.0", :github_tarball => "boxen/puppet-repository"
-mod "stdlib",      "4.0.0", :github_tarball => "puppetlabs/puppetlabs-stdlib"
-mod "java",        "1.2.0", :github_tarball => "boxen/puppet-java"
-mod "module-data", "0.0.1", :github_tarball => "ripienaar/puppet-module-data"
+mod 'boxen',      '3.13.0c', :github_tarball => 'n0ts/puppet-boxen'
+mod 'homebrew',   '2.1.0g',  :github_tarball => 'n0ts/puppet-homebrew'
+mod 'stdlib',     '4.17.1',  :github_tarball => 'puppetlabs/puppetlabs-stdlib'
+mod 'repostiroy', '2.4.1b',  :github_tarball => 'n0ts/puppet-repository'
+mod 'openssl',    '1.0.0',   :github_tarball => 'boxen/puppet-openssl'

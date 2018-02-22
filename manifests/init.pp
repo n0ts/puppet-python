@@ -5,9 +5,11 @@
 #   include python
 #
 class python(
-  $prefix   = $python::prefix,
-  $user     = $python::user,
+  $prefix = $python::prefix,
+  $user   = $python::user,
+  $pyenv  = $python::pyenv::package,
 ) {
+
   if $::osfamily == 'Darwin' {
     include boxen::config
   }
@@ -21,7 +23,7 @@ class python(
     }
 
     file { "/Users/${user}/Library/Application Support/pip":
-      ensure  => directory,
+      ensure => directory,
     }
 
     file { "/Users/${user}/Library/Application Support/pip/pip.conf":
@@ -33,7 +35,7 @@ format = columns
     }
   }
 
-  Class['python::pyenv'] ->
-    Python::Version <| |> ->
-    Python::Plugin <| |>
+  Class['python::pyenv']
+    -> Python::Version <| |>
+    -> Python::Plugin <| |>
 }

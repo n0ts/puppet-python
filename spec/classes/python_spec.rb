@@ -11,23 +11,23 @@ describe 'python' do
 
   let(:params) { default_params }
 
-  it { should contain_class("python::pyenv") }
+  it { should contain_class('python::pyenv') }
 
-  context "osfamily is Darwin" do
+  context 'osfamily is Darwin' do
     let(:facts) {
-      default_test_facts.merge(:osfamily => "Darwin")
+      default_test_facts.merge(:python_user => 'python')
     }
 
-    it { should contain_class("boxen::config") }
-    it { should contain_boxen__env_script("pyenv") }
+    it { should contain_class('boxen::config') }
+    it { should contain_boxen__env_script('pyenv') }
   end
 
-  context "osfamily is not Darwin" do
+  context 'osfamily is not Darwin' do
     let(:facts) {
-      default_test_facts.merge(:osfamily => "Linux", :id => "root")
+      default_test_facts.merge(:osfamily => 'Linux', :id => 'root')
     }
 
-    it { should_not contain_class("boxen::config") }
-    it { should_not contain_boxen__env_script("python") }
+    it { should_not contain_class('boxen::config') }
+    it { should_not contain_boxen__env_script('python') }
   end
 end

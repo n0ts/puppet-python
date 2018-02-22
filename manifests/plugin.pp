@@ -9,17 +9,16 @@
 #     source => 'yyuu/pyenv-virtualenv'
 #   }
 #
-
 define python::plugin (
-    $ensure,
-    $source,
+  $ensure,
+  $source,
 ) {
   require python
 
   repository { "${python::pyenv::prefix}/plugins/${name}":
-    ensure  => $ensure,
-    force   => true,
-    source  => $source,
-    user    => $python::pyenv::user,
+    ensure => $ensure,
+    force  => true,
+    source => $source,
+    user   => $python::pyenv::user,
   }
 }

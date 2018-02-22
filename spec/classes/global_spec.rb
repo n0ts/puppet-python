@@ -12,11 +12,11 @@ describe 'python::global' do
   end
 
   context 'non-system python' do
-    let(:params) { {:version => '2.7.6'} }
+    let(:params) { {:version => '2.7.12'} }
 
     it do
       should contain_file('/test/boxen/pyenv/version').
-        that_requires('Python::Version[2.7.6]')
+        with_require("Python::Version[#{params[:version]}]")
     end
   end
 end
